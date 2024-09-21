@@ -1,12 +1,12 @@
-const FacebookStrategy = require("passport-facebook").Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const passport = require("passport");
 
 passport.use(
-  new FacebookStrategy(
+  new GoogleStrategy(
     {
-      clientID: process.env.FACEBOOK_APP_ID,
-      clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: "https://hotel-gayana-secure.vercel.app/auth/facebook/callback",
+      clientID: process.env.GOOGLE_APP_ID,
+      clientSecret: process.env.GOOGLE_APP_SECRET,
+      callbackURL: "https://hotel-gayana-secure.vercel.app/auth/google/callback",
     },
     function (accessToken, refreshToken, profile, done) {
       done(null, profile);

@@ -9,6 +9,7 @@ const helmet = require('helmet');
 const postRoutesmenu = require('./routes/menu');
 const passport = require("passport");
 const authRoute = require("./routes/facebook.route")
+const googleAuth = require("./routes/google.route")
 const app = express()
 const PORT = process.env.SERVER_PORT || 8000;
 const bodyParser = require('body-parser');
@@ -28,6 +29,7 @@ app.use(cors())
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/auth", authRoute);
+app.use("/googleauth", googleAuth);
 
 // Use Helmet to set the CSP header
 app.use(helmet.contentSecurityPolicy({
