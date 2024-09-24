@@ -7,6 +7,7 @@ const cors = require("cors")
 const helmet = require('helmet');
 const csrf = require('csurf');
 const cookieParser = require('cookie-parser');
+const toobusy = require('toobusy-js');
 
 const csrfProtection = csrf({ cookie: true });
 
@@ -38,6 +39,16 @@ app.use(cors({
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 app.options('*', cors());
+
+// toobusy middleware to monitor event loop
+app.use(function (req, res, next) {
+  if (toobusy()) {
+    // If the server is too busy, respond with 503
+    res.status(503).send("Server Too Busy");
+  } else {
+    next();
+  }
+});
 
 
 app.use(cookieParser());
